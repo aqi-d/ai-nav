@@ -8,7 +8,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export default defineConfig({
   title: "AI 导航站 | Cyberpunk",
   description: "探索前沿 AI 工具与智能体",
-  
+   head: [
+     ['link', { rel: 'shortcut icon', type: 'image/png', href: '/logo-v2.jpg' }],
+  ],
   vite: {
     resolve: {
       alias: {
@@ -19,7 +21,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "🤖",
+    logo: '/logo-v2.jpg',
     appearance: 'dark', 
     // 顶部导航：只放最核心的 5 个
     nav: [
