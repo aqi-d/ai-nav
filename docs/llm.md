@@ -2,7 +2,7 @@
 
 这里汇集了全球最强大的对话式 AI，涵盖从通用聊天到专业推理的各种模型。
 
-<!-- 网格布局容器：minmax(220px, 1fr) 适配小卡片，一行显示更多 -->
+<!-- 网格布局容器：minmax(220px, 1fr) 适配小卡片 -->
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 20px;">
 
   <ToolCard 
@@ -38,6 +38,22 @@
   />
 
   <ToolCard 
+    icon="🎵" 
+    title="豆包 (Doubao)" 
+    desc="字节跳动出品，语音交互体验极佳，日常陪伴与多功能助手。"
+    :tags="['国产', '语音', '字节']"
+    link="https://www.doubao.com"
+  />
+
+  <ToolCard 
+    icon="🦆" 
+    title="腾讯元宝" 
+    desc="腾讯出品，深度整合微信公众号生态，搜文章/总结研报利器。"
+    :tags="['国产', '微信', '搜索']"
+    link="https://yuanbao.tencent.com"
+  />
+
+  <ToolCard 
     icon="🦊" 
     title="Perplexity" 
     desc="AI 搜索引擎，实时联网检索，提供准确来源引用。"
@@ -48,11 +64,11 @@
   <ToolCard 
     icon="🇨🇳" 
     title="通义千问" 
-    desc="阿里出品，中文理解能力强，支持长文档解析。"
+    desc="阿里出品，中文理解能力强，支持长文档解析与代码生成。"
     :tags="['国产', '阿里', '免费']"
     link="https://tongyi.aliyun.com"
   />
 
 </div>
 
-> 💡 **提示**：日常使用推荐 ChatGPT 或 Claude，长文档处理首选 Kimi 或 Gemini。
+> 💡 **提示**：日常闲聊/语音用 **豆包**，查微信文章/研报用 **元宝**，写代码/深度创作首选 **Claude**，长文档阅读选 **Kimi**。

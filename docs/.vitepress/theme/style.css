@@ -6,29 +6,29 @@
 
 /* ☀️ 白天模式：现代极简科技风 (高对比度) */
 :root {
-  --vp-c-bg: #f1f5f9;          /* 页面背景：极浅灰，衬托白卡片 */
-  --vp-c-bg-alt: #ffffff;      /* ✅ 卡片背景：纯白 */
+  --vp-c-bg: #f1f5f9;          /* 页面背景：极浅灰 */
+  --vp-c-bg-alt: #ffffff;      /* 卡片背景：纯白 */
   --vp-c-bg-elv: #f8fafc;
   
-  --vp-c-brand: #2563eb;       /* 电光蓝 (高饱和，清晰) */
+  --vp-c-brand: #2563eb;       /* 电光蓝 */
   --vp-c-brand-next: #0ea5e9;  /* 天蓝色 */
   
-  --vp-c-text-1: #0f172a;      /* ✅ 主文字：深岩灰 (接近黑) */
-  --vp-c-text-2: #475569;      /* 副文字：中灰 (清晰可读) */
+  --vp-c-text-1: #0f172a;      /* 主文字：深岩灰 */
+  --vp-c-text-2: #475569;      /* 副文字：中灰 */
   --vp-c-text-3: #64748b;      /* 辅助文字 */
   
   --vp-c-border: #e2e8f0;      /* 边框：浅灰 */
   --card-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -1px rgba(15, 23, 42, 0.06);
 }
 
-/* 🌃 黑夜模式：赛博朋克霓虹风 */
+/* 🌃 黑夜模式：赛博朋克霓虹风 (变量定义) */
 html.dark {
-  --vp-c-bg: #020617;          /* 页面背景：更深邃的黑 */
+  --vp-c-bg: #020617;          /* 基础深邃黑 */
   --vp-c-bg-alt: #0f172a;      /* 卡片背景：深蓝灰 */
   --vp-c-bg-elv: #1e293b;
   
-  --vp-c-brand: #d946ef;       /* 霓虹品红 (更亮) */
-  --vp-c-brand-next: #22d3ee;  /* 霓虹青 (更亮) */
+  --vp-c-brand: #d946ef;       /* 霓虹品红 */
+  --vp-c-brand-next: #22d3ee;  /* 霓虹青 */
   
   --vp-c-text-1: #f8fafc;      /* 主文字：近白 */
   --vp-c-text-2: #cbd5e1;      /* 副文字：浅灰 */
@@ -36,19 +36,64 @@ html.dark {
   
   --vp-c-border: rgba(217, 70, 239, 0.4);
   --card-shadow: 0 0 15px rgba(217, 70, 239, 0.15);
+  
+  /* ⚠️ 注意：背景图不要写在这里，写在下面的 body 选择器里！ */
 }
 
 /* ========================================
-   2. 基础布局适配
+   2. 基础布局适配 + 🔥 赛博朋克网格背景 (核心修复)
    ======================================== */
+
 body {
   background-color: var(--vp-c-bg);
   color: var(--vp-c-text-1);
   transition: background-color 0.5s ease, color 0.5s ease;
-  -webkit-font-smoothing: antialiased; /* 让字体更清晰 */
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  min-height: 100vh;
 }
 
+/* 🔥 黑夜模式专属：强制网格背景 (使用 !important 确保覆盖) */
+html.dark body {
+  background-image: 
+    /* 1. 横向网格线 (青色) */
+    linear-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px),
+    /* 2. 纵向网格线 (青色) */
+    linear-gradient(90deg, rgba(34, 211, 238, 0.15) 1px, transparent 1px),
+    /* 3. 底部遮罩 (让网格向下逐渐隐入黑暗) */
+    linear-gradient(to bottom, transparent 0%, rgba(2, 6, 23, 1) 80%) !important;
+    
+  background-size: 50px 50px !important;
+  background-position: center 0px !important;
+  background-attachment: fixed !important; /* 滚动时背景固定 */
+  background-color: #020617 !important;
+}
+
+/* 🔥 黑夜模式专属：CRT 扫描线效果 (覆盖全屏) */
+html.dark body::before {
+  content: "" !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important; /* 不影响点击 */
+  z-index: 9999 !important; /* 最顶层 */
+  opacity: 0.4 !important;
+  display: block !important;
+  
+  /* 细微的横向条纹 */
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  ) !important;
+}
+
+/* 导航栏样式 */
 .VPNav {
   background: rgba(var(--vp-c-bg), 0.8) !important;
   backdrop-filter: blur(12px);
@@ -56,7 +101,7 @@ body {
 }
 
 /* ========================================
-   3. ToolCard 组件样式 (核心修复：纯白 + 高对比)
+   3. ToolCard 组件样式
    ======================================== */
 .cyber-card {
   all: initial; 
@@ -65,12 +110,11 @@ body {
   
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 稍微增加间距 */
+  gap: 10px;
   height: 100%;
-  padding: 16px; /* 稍微增加内边距 */
+  padding: 16px;
   border-radius: 12px;
   
-  /* 动态背景与边框 */
   background-color: var(--vp-c-bg-alt);
   border: 1px solid var(--vp-c-border);
   color: var(--vp-c-text-1);
@@ -81,22 +125,23 @@ body {
   overflow: hidden;
 }
 
-/* --- ☀️ 白天模式强制样式 (纯白清晰) --- */
+/* --- ☀️ 白天模式 --- */
 :root .cyber-card {
-  background-color: #ffffff !important; /* ✅ 强制纯白，覆盖所有继承 */
+  background-color: #ffffff !important;
   border-color: #e2e8f0;
   box-shadow: var(--card-shadow);
 }
 
 :root .cyber-card:hover {
   transform: translateY(-4px);
-  border-color: var(--vp-c-brand); /* 悬停变蓝边 */
-  box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.2); /* 蓝色大阴影 */
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.2);
 }
 
-/* --- 🌃 黑夜模式强制样式 (霓虹玻璃) --- */
+/* --- 🌃 黑夜模式 --- */
 html.dark .cyber-card {
-  background: rgba(15, 23, 42, 0.7) !important;
+  /* 稍微增加不透明度，防止背景网格太花 */
+  background: rgba(15, 23, 42, 0.85) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(217, 70, 239, 0.4);
@@ -106,16 +151,14 @@ html.dark .cyber-card {
 html.dark .cyber-card:hover {
   transform: translateY(-4px);
   border-color: var(--vp-c-brand-next);
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.95) !important;
   box-shadow: 0 0 25px rgba(34, 211, 238, 0.3);
 }
 
-/* --- 卡片内部元素优化 --- */
-
-/* 标题：加粗，颜色深 */
+/* 卡片内部元素 */
 .cyber-card .title {
   font-size: 1.05rem;
-  font-weight: 800; /* 更粗 */
+  font-weight: 800;
   margin: 0;
   color: var(--vp-c-text-1);
   white-space: nowrap;
@@ -124,10 +167,9 @@ html.dark .cyber-card:hover {
   letter-spacing: -0.01em;
 }
 
-/* 描述：颜色适中，行高舒适 */
 .cyber-card .desc {
-  font-size: 0.85rem; /* 稍微调大一点点 */
-  color: var(--vp-c-text-2); /* 确保不是浅灰 */
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
   line-height: 1.5;
   margin: 0;
   display: -webkit-box;
@@ -137,7 +179,6 @@ html.dark .cyber-card:hover {
   min-height: 2.55em;
 }
 
-/* 标签容器 */
 .cyber-card .tags {
   display: flex;
   gap: 6px;
@@ -145,33 +186,29 @@ html.dark .cyber-card:hover {
   margin-top: auto;
 }
 
-/* 单个标签 */
 .cyber-card .tag {
   font-size: 0.7rem;
   padding: 3px 8px;
   border-radius: 6px;
-  font-weight: 700; /* 加粗标签文字 */
+  font-weight: 700;
   border: 1px solid transparent;
   transition: all 0.2s;
   letter-spacing: 0.02em;
 }
 
-/* ☀️ 白天标签：浅蓝底 + 深蓝字 (高对比) */
 :root .cyber-card .tag {
-  background: #eff6ff; /* 非常浅的蓝底 */
-  color: #1d4ed8;       /* 深蓝文字，清晰可见 */
+  background: #eff6ff;
+  color: #1d4ed8;
   border-color: #dbeafe;
 }
 
-/* 🌃 黑夜标签：半透明霓虹底 + 亮粉字 */
 html.dark .cyber-card .tag {
   background: rgba(217, 70, 239, 0.15);
-  color: #f0abfc;       /* 亮粉色文字 */
+  color: #f0abfc;
   border-color: rgba(217, 70, 239, 0.4);
   text-shadow: 0 0 2px rgba(217, 70, 239, 0.5);
 }
 
-/* 按钮 */
 .cyber-card .action-btn {
   display: inline-flex;
   align-items: center;
@@ -188,7 +225,6 @@ html.dark .cyber-card .tag {
   letter-spacing: 0.02em;
 }
 
-/* ☀️ 白天按钮：实心电光蓝 + 白字 */
 :root .cyber-card .action-btn {
   background: var(--vp-c-brand);
   color: #ffffff;
@@ -201,7 +237,6 @@ html.dark .cyber-card .tag {
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* 🌃 黑夜按钮：渐变霓虹 + 发光 */
 html.dark .cyber-card .action-btn {
   background: linear-gradient(135deg, rgba(217, 70, 239, 0.2), rgba(34, 211, 238, 0.2));
   color: #ffffff;
@@ -235,7 +270,6 @@ html.dark .cyber-card .action-btn:hover {
   letter-spacing: 0.02em;
 }
 
-/* ☀️ 白天首页按钮 */
 :root .VPHome .VPButton.brand {
   background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-next)) !important;
   color: #fff;
@@ -246,7 +280,6 @@ html.dark .cyber-card .action-btn:hover {
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
 }
 
-/* 🌃 黑夜首页按钮 */
 html.dark .VPHome .VPButton.brand {
   background: linear-gradient(135deg, #d946ef, #22d3ee) !important;
   color: #fff;
@@ -259,7 +292,6 @@ html.dark .VPHome .VPButton.brand:hover {
   filter: brightness(1.1);
 }
 
-/* 备用按钮 */
 .VPButton.alt {
   background: transparent;
   border: 1px solid var(--vp-c-border);
