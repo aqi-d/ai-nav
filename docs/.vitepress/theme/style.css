@@ -4,37 +4,37 @@
    1. 全局变量定义 (严格分离昼夜)
    ======================================== */
 
-/* ☀️ 白天模式：现代极简科技风 (高对比度) */
+/* ☀️ 白天模式：现代极简科技风 */
 :root {
-  --vp-c-bg: #f1f5f9;          /* 页面背景：极浅灰 */
-  --vp-c-bg-alt: #ffffff;      /* 卡片背景：纯白 */
+  --vp-c-bg: #f1f5f9;
+  --vp-c-bg-alt: #ffffff;
   --vp-c-bg-elv: #f8fafc;
   
-  --vp-c-brand: #2563eb;       /* 电光蓝 */
-  --vp-c-brand-next: #0ea5e9;  /* 天蓝色 */
+  --vp-c-brand: #2563eb;
+  --vp-c-brand-next: #0ea5e9;
   
-  --vp-c-text-1: #0f172a;      /* 主文字：深岩灰 */
-  --vp-c-text-2: #475569;      /* 副文字：中灰 */
-  --vp-c-text-3: #64748b;      /* 辅助文字 */
+  --vp-c-text-1: #0f172a;
+  --vp-c-text-2: #475569;
+  --vp-c-text-3: #64748b;
   
-  --vp-c-border: #e2e8f0;      /* 边框：浅灰 */
+  --vp-c-border: #e2e8f0;
   --card-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -1px rgba(15, 23, 42, 0.06);
   
-  /* 📱 侧边栏默认宽度 (平板/小屏) */
+  /* 默认侧边栏宽度 (移动端/平板) */
   --vp-sidebar-width: 280px;
 }
 
-/* 🌃 黑夜模式：赛博朋克霓虹风 (变量定义) */
+/* 🌃 黑夜模式：赛博朋克霓虹风 */
 html.dark {
-  --vp-c-bg: #020617;          /* 基础深邃黑 */
-  --vp-c-bg-alt: #0f172a;      /* 卡片背景：深蓝灰 */
+  --vp-c-bg: #020617;
+  --vp-c-bg-alt: #0f172a;
   --vp-c-bg-elv: #1e293b;
   
-  --vp-c-brand: #d946ef;       /* 霓虹品红 */
-  --vp-c-brand-next: #22d3ee;  /* 霓虹青 */
+  --vp-c-brand: #d946ef;
+  --vp-c-brand-next: #22d3ee;
   
-  --vp-c-text-1: #f8fafc;      /* 主文字：近白 */
-  --vp-c-text-2: #cbd5e1;      /* 副文字：浅灰 */
+  --vp-c-text-1: #f8fafc;
+  --vp-c-text-2: #cbd5e1;
   --vp-c-text-3: #94a3b8;
   
   --vp-c-border: rgba(217, 70, 239, 0.4);
@@ -42,7 +42,7 @@ html.dark {
 }
 
 /* ========================================
-   2. 基础布局适配 + 🔥 赛博朋克网格背景
+   2. 基础布局 + 🔥 赛博朋克网格背景
    ======================================== */
 
 body {
@@ -55,36 +55,30 @@ body {
   min-height: 100vh;
 }
 
-/* 🔥 黑夜模式专属：强制网格背景 (使用 !important 确保覆盖) */
+/* 🔥 黑夜模式：网格背景 (强制覆盖) */
 html.dark body {
   background-image: 
-    /* 1. 横向网格线 (青色) */
     linear-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px),
-    /* 2. 纵向网格线 (青色) */
     linear-gradient(90deg, rgba(34, 211, 238, 0.15) 1px, transparent 1px),
-    /* 3. 底部遮罩 (让网格向下逐渐隐入黑暗) */
     linear-gradient(to bottom, transparent 0%, rgba(2, 6, 23, 1) 80%) !important;
     
   background-size: 50px 50px !important;
   background-position: center 0px !important;
-  background-attachment: fixed !important; /* 滚动时背景固定 */
+  background-attachment: fixed !important;
   background-color: #020617 !important;
 }
 
-/* 🔥 黑夜模式专属：CRT 扫描线效果 (覆盖全屏) */
+/* 🔥 黑夜模式：CRT 扫描线 (强制覆盖) */
 html.dark body::before {
   content: "" !important;
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none !important; /* 不影响点击 */
-  z-index: 9999 !important; /* 最顶层 */
+  top: 0 !important; left: 0 !important;
+  width: 100vw !important; height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
   opacity: 0.4 !important;
   display: block !important;
   
-  /* 细微的横向条纹 */
   background: repeating-linear-gradient(
     0deg,
     rgba(0, 0, 0, 0.15),
@@ -94,7 +88,7 @@ html.dark body::before {
   ) !important;
 }
 
-/* 导航栏样式 */
+/* 导航栏毛玻璃 */
 .VPNav {
   background: rgba(var(--vp-c-bg), 0.8) !important;
   backdrop-filter: blur(12px);
@@ -102,62 +96,61 @@ html.dark body::before {
 }
 
 /* ========================================
-   3. 📱 响应式侧边栏优化 (大屏自适应)
+   3. 📱 核心修复：侧边栏宽度强制锁定 + 大屏居中
    ======================================== */
 
-/* 大屏优化 (屏幕宽度 > 1440px) */
-@media (min-width: 1440px) {
-  :root {
-    /* 大屏强制缩小侧边栏，避免太宽浪费空间 */
-    --vp-sidebar-width: 240px !important; 
-  }
-}
-
-/* 超大屏优化 (屏幕宽度 > 1920px / 4K) */
-@media (min-width: 1920px) {
-  :root {
-    /* 4K 屏下侧边栏稍微放宽一点点，但保持紧凑 */
-    --vp-sidebar-width: 260px !important;
+/* 🛑 关键修复：无论屏幕多宽，侧边栏强制锁定为 240px */
+@media (min-width: 960px) {
+  .VPSidebar {
+    width: 240px !important;
+    min-width: 240px !important;
+    max-width: 240px !important;
+    padding-left: 12px !important; /* 减少内边距，更紧凑 */
+    padding-right: 12px !important;
   }
   
-  /* 可选：让主要内容区域在大屏上居中，两边留白，更像文档中心 */
+  /* 当侧边栏固定时，调整主内容区域的左边距，防止重叠 */
+  .VPDoc {
+    padding-left: 32px !important; 
+  }
+}
+
+/* 🖥️ 超大屏优化：内容区域居中，两边留白 */
+@media (min-width: 1600px) {
   .VPLayout {
-    max-width: 1800px;
-    margin: 0 auto;
+    max-width: 1600px !important; /* 限制最大宽度 */
+    margin: 0 auto !important;    /* 居中显示 */
+  }
+  
+  /* 移除右侧多余的边框，让视觉更干净 */
+  .VPDoc.has-aside .content-container {
+    max-width: 100% !important;
   }
 }
 
-/* 移动端适配 (保持原有行为) */
+/* 移动端：全屏显示 */
 @media (max-width: 960px) {
-  :root {
-    --vp-sidebar-width: 100%; 
+  .VPSidebar {
+    width: 100% !important;
   }
-}
-
-/* 侧边栏内部微调 */
-.VPSidebar {
-  padding-left: 12px !important;
 }
 
 /* ========================================
-   4. ToolCard 组件样式
+   4. ToolCard 组件样式 (赛博朋克风)
    ======================================== */
 .cyber-card {
   all: initial; 
   font-family: inherit;
   box-sizing: border-box;
-  
   display: flex;
   flex-direction: column;
   gap: 10px;
   height: 100%;
   padding: 16px;
   border-radius: 12px;
-  
   background-color: var(--vp-c-bg-alt);
   border: 1px solid var(--vp-c-border);
   color: var(--vp-c-text-1);
-  
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   position: relative;
@@ -170,7 +163,6 @@ html.dark body::before {
   border-color: #e2e8f0;
   box-shadow: var(--card-shadow);
 }
-
 :root .cyber-card:hover {
   transform: translateY(-4px);
   border-color: var(--vp-c-brand);
@@ -179,14 +171,12 @@ html.dark body::before {
 
 /* --- 🌃 黑夜模式 --- */
 html.dark .cyber-card {
-  /* 稍微增加不透明度，防止背景网格太花 */
   background: rgba(15, 23, 42, 0.85) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(217, 70, 239, 0.4);
   box-shadow: 0 0 10px rgba(217, 70, 239, 0.1);
 }
-
 html.dark .cyber-card:hover {
   transform: translateY(-4px);
   border-color: var(--vp-c-brand-next);
@@ -194,7 +184,7 @@ html.dark .cyber-card:hover {
   box-shadow: 0 0 25px rgba(34, 211, 238, 0.3);
 }
 
-/* 卡片内部元素 */
+/* 卡片内部细节 */
 .cyber-card .title {
   font-size: 1.05rem;
   font-weight: 800;
@@ -203,9 +193,7 @@ html.dark .cyber-card:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.01em;
 }
-
 .cyber-card .desc {
   font-size: 0.85rem;
   color: var(--vp-c-text-2);
@@ -217,37 +205,30 @@ html.dark .cyber-card:hover {
   overflow: hidden;
   min-height: 2.55em;
 }
-
 .cyber-card .tags {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
   margin-top: auto;
 }
-
 .cyber-card .tag {
   font-size: 0.7rem;
   padding: 3px 8px;
   border-radius: 6px;
   font-weight: 700;
   border: 1px solid transparent;
-  transition: all 0.2s;
-  letter-spacing: 0.02em;
 }
-
 :root .cyber-card .tag {
   background: #eff6ff;
   color: #1d4ed8;
   border-color: #dbeafe;
 }
-
 html.dark .cyber-card .tag {
   background: rgba(217, 70, 239, 0.15);
   color: #f0abfc;
   border-color: rgba(217, 70, 239, 0.4);
   text-shadow: 0 0 2px rgba(217, 70, 239, 0.5);
 }
-
 .cyber-card .action-btn {
   display: inline-flex;
   align-items: center;
@@ -261,28 +242,23 @@ html.dark .cyber-card .tag {
   transition: all 0.3s;
   margin-top: 4px;
   border: 1px solid transparent;
-  letter-spacing: 0.02em;
 }
-
 :root .cyber-card .action-btn {
   background: var(--vp-c-brand);
   color: #ffffff;
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
-
 :root .cyber-card .action-btn:hover {
   background: var(--vp-c-brand-next);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
 }
-
 html.dark .cyber-card .action-btn {
   background: linear-gradient(135deg, rgba(217, 70, 239, 0.2), rgba(34, 211, 238, 0.2));
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
 }
-
 html.dark .cyber-card .action-btn:hover {
   background: linear-gradient(135deg, #d946ef, #22d3ee);
   border-color: transparent;
@@ -290,7 +266,6 @@ html.dark .cyber-card .action-btn:hover {
   transform: translateY(-2px);
   text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
-
 .cyber-card .arrow {
   transition: transform 0.3s;
   font-size: 1rem;
@@ -306,9 +281,7 @@ html.dark .cyber-card .action-btn:hover {
   transition: all 0.3s ease;
   border: none;
   font-weight: 700;
-  letter-spacing: 0.02em;
 }
-
 :root .VPHome .VPButton.brand {
   background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-next)) !important;
   color: #fff;
@@ -318,7 +291,6 @@ html.dark .cyber-card .action-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
 }
-
 html.dark .VPHome .VPButton.brand {
   background: linear-gradient(135deg, #d946ef, #22d3ee) !important;
   color: #fff;
@@ -330,7 +302,6 @@ html.dark .VPHome .VPButton.brand:hover {
   box-shadow: 0 0 40px rgba(34, 211, 238, 0.8);
   filter: brightness(1.1);
 }
-
 .VPButton.alt {
   background: transparent;
   border: 1px solid var(--vp-c-border);
@@ -358,7 +329,6 @@ html.dark a:hover {
   color: var(--vp-c-brand-next);
   text-shadow: 0 0 8px var(--vp-c-brand);
 }
-
 pre, code {
   background-color: var(--vp-c-bg-elv) !important;
   border: 1px solid var(--vp-c-border);
