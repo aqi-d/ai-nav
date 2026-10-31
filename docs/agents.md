@@ -37,6 +37,14 @@
     link="https://www.genspark.ai"
   />
 
+  <ToolCard
+    icon="🧪"
+    title="agent-qa"
+    desc="通过 CLI / MCP 用自然语言测试 Web、Android 和 iOS，结合 memidex 持久记忆、经验证的自我改进与可审查证据。"
+    :tags="['应用测试', 'MCP', '持久记忆']"
+    link="https://vostride.com"
+  />
+
 </div>
 
 > 💡 **提示**：想快速做个机器人玩或商用选 Coze，企业自建 AI 应用选 Dify，研究自主智能体选 AutoGPT。
